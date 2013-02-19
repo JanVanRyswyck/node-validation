@@ -1,0 +1,24 @@
+{
+  "name": "node-validation",
+  "description": "A small validation library for Node.js",
+  "version": "0.1.0",
+  "author": "Jan Van Ryswyck (http://elegantcode.com)",
+  "keywords": [
+    "validator",
+    "validation",
+    "express"
+  ],
+  "scripts": {
+    "tests": "mocha ./test/*"
+  },
+  "directories": {
+    "lib": "./lib"
+  },
+  "engines": {
+    "node": "0.8.x"
+  },
+  "devDependencies": {
+    "mocha": "1.8.x",
+    "chai": "1.5.x"
+  }
+}
