@@ -36,7 +36,7 @@ describe('Given a validator that verifies whether the string property of an obje
 			validationErrors.should.have.deep.property('[0].propertyName', 'stringProperty');
 		});
 
-		it('Should return a validation error that specifies a message which explains the error', function() {
+		it('Should return a validation error that specifies a default message which explains the error', function() {
 			validationErrors.should.have.deep.property('[0].message', 'stringProperty should not be empty.');
 		});
 	});
