@@ -2,25 +2,11 @@ var should = require('chai').should(),
 	util = require('util'),
     Validator = require('../lib').Validator;
 
-describe('Given a validator that verifies whether the string property of an object is not empty', function() {
+describe('Given a validator that verifies whether the string property of an object is empty', function() {
 	var validator, validationErrors;
 
 	before(function() {
-		validator = new StringNotEmptyValidator();
-	});
-
-	describe('When validating a valid string value', function() {
-		before(function() {
-			var objectWithStringProperty = {
-				stringProperty: 'this-is-a-valid-string'
-			};
-
-			validationErrors = validator.validate(objectWithStringProperty);
-		});
-
-		it('Should not return any validation error', function() {
-			validationErrors.should.have.length(0);
-		});
+		validator = new StringEmptyValidator();
 	});
 
 	describe('When validating an empty string value', function() {
@@ -32,12 +18,26 @@ describe('Given a validator that verifies whether the string property of an obje
 			validationErrors = validator.validate(objectWithEmptyStringProperty);
 		});
 
+		it('Should not return any validation error', function() {
+			validationErrors.should.have.length(0);
+		});
+	});
+
+	describe('When validating a string value', function() {
+		before(function() {
+			var objectWithStringProperty = {
+				stringProperty: 'this-is-a-string'
+			};
+
+			validationErrors = validator.validate(objectWithStringProperty);
+		});
+
 		it('Should return a validation error that specifies the failing property', function() {
 			validationErrors.should.have.deep.property('[0].propertyName', 'stringProperty');
 		});
 
 		it('Should return a validation error that specifies a default message which explains the error', function() {
-			validationErrors.should.have.deep.property('[0].message', 'stringProperty should not be empty.');
+			validationErrors.should.have.deep.property('[0].message', 'stringProperty should be empty.');
 		});
 	});
 
@@ -70,10 +70,10 @@ describe('Given a validator that verifies whether the string property of an obje
 	});
 });
 
-var StringNotEmptyValidator = function() {
+var StringEmptyValidator = function() {
 	Validator.call(this);
 	
-	this.ruleFor('stringProperty').isNotEmpty();
+	this.ruleFor('stringProperty').isEmpty();
 };
 
-util.inherits(StringNotEmptyValidator, Validator);
+util.inherits(StringEmptyValidator, Validator);

@@ -59,7 +59,7 @@ describe('Given a validator that verifies whether the property of an object has 
 var ValueNotNullValidator = function() {
 	Validator.call(this);
 	
-	this.ruleFor('property').notNull();
+	this.ruleFor('property').isNotNull();
 };
 
 util.inherits(ValueNotNullValidator, Validator);

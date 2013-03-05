@@ -73,7 +73,7 @@ describe('Given a validator that verifies whether the array property of an objec
 var ArrayNotEmptyValidator = function() {
 	Validator.call(this);
 	
-	this.ruleFor('arrayProperty').notEmpty();
+	this.ruleFor('arrayProperty').isNotEmpty();
 };
 
 util.inherits(ArrayNotEmptyValidator, Validator);

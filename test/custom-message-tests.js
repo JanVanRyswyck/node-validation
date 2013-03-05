@@ -28,7 +28,7 @@ describe('Given a validator that verifies a property with a custom validation me
 var CustomMessageValidator = function(customMessage) {
 	Validator.call(this);
 	
-	this.ruleFor('property').notEmpty().withMessage(customMessage);
+	this.ruleFor('property').isNotEmpty().withMessage(customMessage);
 };
 
 util.inherits(CustomMessageValidator, Validator);
