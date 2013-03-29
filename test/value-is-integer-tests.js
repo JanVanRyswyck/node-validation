@@ -2,20 +2,20 @@ var should = require('chai').should(),
 	util = require('util'),
     Validator = require('../lib').Validator;
 
-describe('Given a validator that verifies whether the value of the property of an object is a number', function() {
+describe('Given a validator that verifies whether the value of the property of an object is an integer', function() {
 	var validator, validationErrors;
 
 	before(function() {
-		validator = new ValueIsNumberValidator();
+		validator = new ValueIsIntegerValidator();
 	});
 
-	describe('When validating a decimal value', function() {
+	describe('When validating an integer value', function() {
 		before(function() {
-			var objectWithNumericProperty = {
-				property: 564254.45
+			var objectWithIntegerProperty = {
+				property: 26
 			};
 
-			validationErrors = validator.validate(objectWithNumericProperty);
+			validationErrors = validator.validate(objectWithIntegerProperty);
 		});
 
 		it('Should not return any validation error', function() {
@@ -23,13 +23,13 @@ describe('Given a validator that verifies whether the value of the property of a
 		});
 	});
 
-	describe('When validating a numeric string value', function() {
+	describe('When validating an integer as string value', function() {
 		before(function() {
-			var objectWithNumericStringProperty = {
-				property: '5468'
+			var objectWithIntegerAsStringProperty = {
+				property: '12'
 			};
 
-			validationErrors = validator.validate(objectWithNumericStringProperty);
+			validationErrors = validator.validate(objectWithIntegerAsStringProperty);
 		});
 
 		it('Should not return any validation error', function() {
@@ -37,7 +37,7 @@ describe('Given a validator that verifies whether the value of the property of a
 		});
 	});
 
-	describe('When validating a non-numeric string value', function() {
+	describe('When validating a non-integer string value', function() {
 		before(function() {
 			var objectWithStringProperty = {
 				property: 'does-not-compute'
@@ -51,17 +51,17 @@ describe('Given a validator that verifies whether the value of the property of a
 		});
 
 		it('Should return a validation error that specifies a default message which explains the error', function() {
-			validationErrors.should.have.deep.property('[0].message', 'property should be a number.');
+			validationErrors.should.have.deep.property('[0].message', 'property should be an integer.');
 		});
 	});
 
-	describe('When validating an infinite value', function() {
+	describe('When validating a decimal value', function() {
 		before(function() {
-			var objectWithInfiniteProperty = {
-				property: Infinity
+			var objectWithDecimalProperty = {
+				property: 1E302
 			};
 
-			validationErrors = validator.validate(objectWithInfiniteProperty);
+			validationErrors = validator.validate(objectWithDecimalProperty);
 		});
 
 		it('Should return a validation error', function() {
@@ -70,10 +70,10 @@ describe('Given a validator that verifies whether the value of the property of a
 	});
 });
 
-var ValueIsNumberValidator = function() {
+var ValueIsIntegerValidator = function() {
 	Validator.call(this);
 
-	this.ruleFor('property').isNumber();
+	this.ruleFor('property').isInteger();
 };
 
-util.inherits(ValueIsNumberValidator, Validator);
+util.inherits(ValueIsIntegerValidator, Validator);
