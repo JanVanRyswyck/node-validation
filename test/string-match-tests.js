@@ -7,7 +7,7 @@ describe('Given a validator that verifies whether the value of a property of an 
 
 	before(function() {
 		validator = new StringMatchValidator();
-	});	
+	});
 
 	describe('When validating a matching string value', function() {
 		before(function() {
