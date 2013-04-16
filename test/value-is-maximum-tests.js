@@ -2,19 +2,19 @@ var should = require('chai').should(),
 	util = require('util'),
     Validator = require('../lib').Validator;
 
-var MINIMUM_VALUE = 12.16;
+var MAXIMUM_VALUE = 26.12;
 
-describe('Given a validator that verifies whether the value of the property of an object has a particular minimum value', function() {
+describe('Given a validator that verifies whether the value of the property of an object has a particular maximum value', function() {
 	var validator, validationErrors;
 
 	before(function() {
-		validator = new ValueIsMinimumValidator();
+		validator = new ValueIsMaximumValidator();
 	});
 
-	describe('When validating a numeric string value that equals the specified minimum value', function() {
+	describe('When validating a numeric string value that equals the specified maximum value', function() {
 		before(function() {
 			var objectWithNumericProperty = {
-				property: MINIMUM_VALUE.toString()
+				property: MAXIMUM_VALUE.toString()
 			};
 
 			validationErrors = validator.validate(objectWithNumericProperty);
@@ -25,10 +25,10 @@ describe('Given a validator that verifies whether the value of the property of a
 		});
 	});
 
-	describe('When validating a numeric string value that is less than the specified minimum value', function() {
+	describe('When validating a numeric string value that is more than the specified maximum value', function() {
 		before(function() {
 			var objectWithNumericProperty = {
-				property: (MINIMUM_VALUE - 1).toString()
+				property: (MAXIMUM_VALUE + 1).toString()
 			};
 
 			validationErrors = validator.validate(objectWithNumericProperty);
@@ -39,14 +39,14 @@ describe('Given a validator that verifies whether the value of the property of a
 		});
 
 		it('Should return a validation error that specifies a default message which explains the error', function() {
-			validationErrors.should.have.deep.property('[0].message', 'property should be greater than or equal to ' + MINIMUM_VALUE + ' .');
+			validationErrors.should.have.deep.property('[0].message', 'property should be less than or equal to ' + MAXIMUM_VALUE + ' .');
 		});
 	});
 
-	describe('When validating a numeric string value that is more than the specified minimum value', function() {
+	describe('When validating a numeric string value that is less than the specified maximum value', function() {
 		before(function() {
 			var objectWithNumericProperty = {
-				property: (MINIMUM_VALUE + 1).toString()
+				property: (MAXIMUM_VALUE - 1).toString()
 			};
 
 			validationErrors = validator.validate(objectWithNumericProperty);
@@ -58,10 +58,10 @@ describe('Given a validator that verifies whether the value of the property of a
 	});
 });
 
-var ValueIsMinimumValidator = function() {
+var ValueIsMaximumValidator = function() {
 	Validator.call(this);
 
-	this.ruleFor('property').isMinimum(MINIMUM_VALUE);
+	this.ruleFor('property').isMaximum(MAXIMUM_VALUE);
 };
 
-util.inherits(ValueIsMinimumValidator, Validator);
+util.inherits(ValueIsMaximumValidator, Validator);
