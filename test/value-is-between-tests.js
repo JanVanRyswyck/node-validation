@@ -1,0 +1,96 @@
+var should = require('chai').should(),
+	util = require('util'),
+    Validator = require('../lib').Validator;
+
+var MINIMUM_VALUE = 11.12;
+var MAXIMUM_VALUE = 24.25;
+
+describe('Given a validator that verifies whether the value of the property of an object is between a particular minimum and maximum value', function() {
+	var validator, validationErrors;
+
+	before(function() {
+		validator = new ValueIsBetweenValidator();
+	});
+
+	describe('When validating a numeric string value that is between the specified minimum and maximum value', function() {
+		before(function() {
+			var objectWithNumericProperty = {
+				property: MAXIMUM_VALUE - 5
+			};
+
+			validationErrors = validator.validate(objectWithNumericProperty);
+		});
+
+		it('Should not return any validation error', function() {
+			validationErrors.should.have.length(0);
+		});
+	});
+
+	describe('When validating a numeric string value that is less than the specified minimum value', function() {
+		before(function() {
+			var objectWithNumericProperty = {
+				property: MINIMUM_VALUE - 1
+			};
+
+			validationErrors = validator.validate(objectWithNumericProperty);
+		});
+
+		it('Should return a validation error that specifies the failing property', function() {
+			validationErrors.should.have.deep.property('[0].propertyName', 'property');
+		});
+
+		it('Should return a validation error that specifies a default message which explains the error', function() {
+			validationErrors.should.have.deep.property('[0].message', 'property should be between ' + MINIMUM_VALUE + ' and ' + MAXIMUM_VALUE + ' .');
+		});
+	});
+
+	describe('When validating a numeric string value that is more than the specified maximum value', function() {
+		before(function() {
+			var objectWithNumericProperty = {
+				property: MAXIMUM_VALUE + 1
+			};
+
+			validationErrors = validator.validate(objectWithNumericProperty);
+		});
+
+		it('Should return a validation error', function() {
+			validationErrors.should.have.length(1);
+		});
+	});
+
+	describe('When validating a numeric value that equals the specified minimum value', function() {
+		before(function() {
+			var objectWithNumericProperty = {
+				property: MINIMUM_VALUE
+			};
+
+			validationErrors = validator.validate(objectWithNumericProperty);
+		});
+
+		it('Should not return any validation error', function() {
+			validationErrors.should.have.length(0);
+		});
+	});
+
+	describe('When validating a numeric value that equals the specified maximum value', function() {
+		before(function() {
+			var objectWithNumericProperty = {
+				property: MAXIMUM_VALUE
+			};
+
+			validationErrors = validator.validate(objectWithNumericProperty);
+		});
+
+		it('Should not return any validation error', function() {
+			validationErrors.should.have.length(0);
+		});
+	});
+});
+
+var ValueIsBetweenValidator = function() {
+	Validator.call(this);
+
+	this.ruleFor('property').isBetween(MINIMUM_VALUE, MAXIMUM_VALUE);
+};
+
+util.inherits(ValueIsBetweenValidator, Validator);

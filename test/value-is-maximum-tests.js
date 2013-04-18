@@ -11,10 +11,10 @@ describe('Given a validator that verifies whether the value of the property of a
 		validator = new ValueIsMaximumValidator();
 	});
 
-	describe('When validating a numeric string value that equals the specified maximum value', function() {
+	describe('When validating a numeric string value that is less than the specified maximum value', function() {
 		before(function() {
 			var objectWithNumericProperty = {
-				property: MAXIMUM_VALUE.toString()
+				property: (MAXIMUM_VALUE - 1).toString()
 			};
 
 			validationErrors = validator.validate(objectWithNumericProperty);
@@ -43,10 +43,10 @@ describe('Given a validator that verifies whether the value of the property of a
 		});
 	});
 
-	describe('When validating a numeric string value that is less than the specified maximum value', function() {
+	describe('When validating a numeric string value that equals the specified maximum value', function() {
 		before(function() {
 			var objectWithNumericProperty = {
-				property: (MAXIMUM_VALUE - 1).toString()
+				property: MAXIMUM_VALUE.toString()
 			};
 
 			validationErrors = validator.validate(objectWithNumericProperty);

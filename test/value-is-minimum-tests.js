@@ -11,10 +11,10 @@ describe('Given a validator that verifies whether the value of the property of a
 		validator = new ValueIsMinimumValidator();
 	});
 
-	describe('When validating a numeric string value that equals the specified minimum value', function() {
+	describe('When validating a numeric string value that is more than the specified minimum value', function() {
 		before(function() {
 			var objectWithNumericProperty = {
-				property: MINIMUM_VALUE.toString()
+				property: (MINIMUM_VALUE + 1).toString()
 			};
 
 			validationErrors = validator.validate(objectWithNumericProperty);
@@ -43,10 +43,10 @@ describe('Given a validator that verifies whether the value of the property of a
 		});
 	});
 
-	describe('When validating a numeric string value that is more than the specified minimum value', function() {
+	describe('When validating a numeric string value that equals the specified minimum value', function() {
 		before(function() {
 			var objectWithNumericProperty = {
-				property: (MINIMUM_VALUE + 1).toString()
+				property: MINIMUM_VALUE.toString()
 			};
 
 			validationErrors = validator.validate(objectWithNumericProperty);
