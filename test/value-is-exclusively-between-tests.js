@@ -2,14 +2,14 @@ var should = require('chai').should(),
 	util = require('util'),
     Validator = require('../lib').Validator;
 
-var MINIMUM_VALUE = 11.12;
-var MAXIMUM_VALUE = 24.25;
+var MINIMUM_VALUE = 44.78;
+var MAXIMUM_VALUE = 68.03;
 
-describe('Given a validator that verifies whether the value of the property of an object is between a particular minimum and maximum value', function() {
+describe('Given a validator that verifies whether the value of the property of an object is exclusively between a particular minimum and maximum value', function() {
 	var validator, validationErrors;
 
 	before(function() {
-		validator = new ValueIsBetweenValidator();
+		validator = new ValueIsExclusiveBetweenValidator();
 	});
 
 	describe('When validating a numeric value that is between the specified minimum and maximum value', function() {
@@ -40,7 +40,7 @@ describe('Given a validator that verifies whether the value of the property of a
 		});
 
 		it('Should return a validation error that specifies a default message which explains the error', function() {
-			validationErrors.should.have.deep.property('[0].message', 'property should be between ' + MINIMUM_VALUE + ' and ' + MAXIMUM_VALUE + ' .');
+			validationErrors.should.have.deep.property('[0].message', 'property should be exclusively between ' + MINIMUM_VALUE + ' and ' + MAXIMUM_VALUE + ' .');
 		});
 	});
 
@@ -67,8 +67,8 @@ describe('Given a validator that verifies whether the value of the property of a
 			validationErrors = validator.validate(objectWithNumericProperty);
 		});
 
-		it('Should not return any validation error', function() {
-			validationErrors.should.have.length(0);
+		it('Should return a validation error', function() {
+			validationErrors.should.have.length(1);
 		});
 	});
 
@@ -81,16 +81,16 @@ describe('Given a validator that verifies whether the value of the property of a
 			validationErrors = validator.validate(objectWithNumericProperty);
 		});
 
-		it('Should not return any validation error', function() {
-			validationErrors.should.have.length(0);
+		it('Should return a validation error', function() {
+			validationErrors.should.have.length(1);
 		});
 	});
 });
 
-var ValueIsBetweenValidator = function() {
+var ValueIsExclusiveBetweenValidator = function() {
 	Validator.call(this);
 
-	this.ruleFor('property').isBetween(MINIMUM_VALUE, MAXIMUM_VALUE);
+	this.ruleFor('property').isExclusivelyBetween(MINIMUM_VALUE, MAXIMUM_VALUE);
 };
 
-util.inherits(ValueIsBetweenValidator, Validator);
+util.inherits(ValueIsExclusiveBetweenValidator, Validator);
