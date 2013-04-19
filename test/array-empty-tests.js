@@ -58,7 +58,7 @@ describe('Given a validator that verifies whether the array property of an objec
 	describe('When validating a null value', function() {
 		before(function() {
 			var objectWithNullArrayProperty = {
-				stringProperty: null
+				arrayProperty: null
 			};
 
 			validationErrors = validator.validate(objectWithNullArrayProperty);
