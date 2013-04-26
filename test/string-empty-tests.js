@@ -72,7 +72,7 @@ describe('Given a validator that verifies whether the string property of an obje
 
 var StringEmptyValidator = function() {
 	Validator.call(this);
-	
+
 	this.ruleFor('stringProperty').isEmpty();
 };
 

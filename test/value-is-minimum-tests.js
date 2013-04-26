@@ -13,11 +13,11 @@ describe('Given a validator that verifies whether the value of the property of a
 
 	describe('When validating a numeric string value that is more than the specified minimum value', function() {
 		before(function() {
-			var objectWithNumericProperty = {
-				property: (MINIMUM_VALUE + 1).toString()
+			var objectWithNumericStringProperty = {
+				stringProperty: (MINIMUM_VALUE + 1).toString()
 			};
 
-			validationErrors = validator.validate(objectWithNumericProperty);
+			validationErrors = validator.validate(objectWithNumericStringProperty);
 		});
 
 		it('Should not return any validation error', function() {
@@ -27,29 +27,29 @@ describe('Given a validator that verifies whether the value of the property of a
 
 	describe('When validating a numeric string value that is less than the specified minimum value', function() {
 		before(function() {
-			var objectWithNumericProperty = {
-				property: (MINIMUM_VALUE - 1).toString()
+			var objectWithNumericStringProperty = {
+				stringProperty: (MINIMUM_VALUE - 1).toString()
 			};
 
-			validationErrors = validator.validate(objectWithNumericProperty);
+			validationErrors = validator.validate(objectWithNumericStringProperty);
 		});
 
 		it('Should return a validation error that specifies the failing property', function() {
-			validationErrors.should.have.deep.property('[0].propertyName', 'property');
+			validationErrors.should.have.deep.property('[0].propertyName', 'stringProperty');
 		});
 
 		it('Should return a validation error that specifies a default message which explains the error', function() {
-			validationErrors.should.have.deep.property('[0].message', 'property should be greater than or equal to ' + MINIMUM_VALUE + ' .');
+			validationErrors.should.have.deep.property('[0].message', 'stringProperty should be greater than or equal to ' + MINIMUM_VALUE + ' .');
 		});
 	});
 
 	describe('When validating a numeric string value that equals the specified minimum value', function() {
 		before(function() {
-			var objectWithNumericProperty = {
-				property: MINIMUM_VALUE.toString()
+			var objectWithNumericStringProperty = {
+				stringProperty: MINIMUM_VALUE.toString()
 			};
 
-			validationErrors = validator.validate(objectWithNumericProperty);
+			validationErrors = validator.validate(objectWithNumericStringProperty);
 		});
 
 		it('Should not return any validation error', function() {
@@ -61,7 +61,7 @@ describe('Given a validator that verifies whether the value of the property of a
 var ValueIsMinimumValidator = function() {
 	Validator.call(this);
 
-	this.ruleFor('property').isMinimum(MINIMUM_VALUE);
+	this.ruleFor('stringProperty').isMinimum(MINIMUM_VALUE);
 };
 
 util.inherits(ValueIsMinimumValidator, Validator);
