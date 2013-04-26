@@ -2,20 +2,20 @@ var should = require('chai').should(),
 	util = require('util'),
     Validator = require('../lib').Validator;
 
-var MAXIMUM_LENGTH = 16;
+var MINIMUM_LENGTH = 4;
 
-describe('Given a validator that verifies whether the string property of an object has a particular maximum length', function() {
+describe('Given a validator that verifies whether the string property of an object has a particular minimum length', function() {
 	var validator, validationErrors, stringValue;
 
 	before(function() {
-		validator = new MaximumStringLengthValidator();
-		stringValue = 'ThisIsSomeStringValueOfSufficientLength';
+		validator = new MinimumStringLengthValidator();
+		stringValue = 'SomeStringValue';
 	});
 
-	describe('When validating a string value whose length is less than the specified maximum length', function() {
+	describe('When validating a string value whose length is more than the specified minimum length', function() {
 		before(function() {
 			var objectWithStringProperty = {
-				stringProperty: stringValue.slice(0, MAXIMUM_LENGTH - 1)
+				stringProperty: stringValue.slice(0, MINIMUM_LENGTH + 1)
 			};
 
 			validationErrors = validator.validate(objectWithStringProperty);
@@ -26,10 +26,10 @@ describe('Given a validator that verifies whether the string property of an obje
 		});
 	});
 
-	describe('When validating a string value whose length is more than the specified maximum length', function() {
+	describe('When validating a string value whose length is less than the specified minimum length', function() {
 		before(function() {
 			var objectWithStringProperty = {
-				stringProperty: stringValue.slice(0, MAXIMUM_LENGTH + 1)
+				stringProperty: stringValue.slice(0, MINIMUM_LENGTH - 1)
 			};
 
 			validationErrors = validator.validate(objectWithStringProperty);
@@ -40,14 +40,14 @@ describe('Given a validator that verifies whether the string property of an obje
 		});
 
 		it('Should return a validation error that specifies a default message which explains the error', function() {
-			validationErrors.should.have.deep.property('[0].message', 'stringProperty should be shorter than ' + MAXIMUM_LENGTH + ' characters.');
+			validationErrors.should.have.deep.property('[0].message', 'stringProperty should be longer than ' + MINIMUM_LENGTH + ' characters.');
 		});
 	});
 
-	describe('When validating a string value whose length equals the specified maximum length', function() {
+	describe('When validating a string value whose length equals the specified minimum length', function() {
 		before(function() {
 			var objectWithStringProperty = {
-				stringProperty: stringValue.slice(0, MAXIMUM_LENGTH)
+				stringProperty: stringValue.slice(0, MINIMUM_LENGTH)
 			};
 
 			validationErrors = validator.validate(objectWithStringProperty);
@@ -87,10 +87,10 @@ describe('Given a validator that verifies whether the string property of an obje
 	});
 });
 
-var MaximumStringLengthValidator = function() {
+var MinimumStringLengthValidator = function() {
 	Validator.call(this);
 
-	this.ruleFor('stringProperty').hasMaximumLength(MAXIMUM_LENGTH);
+	this.ruleFor('stringProperty').hasMinimumLength(MINIMUM_LENGTH);
 };
 
-util.inherits(MaximumStringLengthValidator, Validator);
+util.inherits(MinimumStringLengthValidator, Validator);
