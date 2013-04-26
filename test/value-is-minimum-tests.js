@@ -56,6 +56,34 @@ describe('Given a validator that verifies whether the value of the property of a
 			validationErrors.should.have.length(0);
 		});
 	});
+
+	describe('When validating an undefined value', function() {
+		before(function() {
+			var objectWithUndefinedStringProperty = {
+				stringProperty: undefined
+			};
+
+			validationErrors = validator.validate(objectWithUndefinedStringProperty);
+		});
+
+		it('Should return a validation error', function() {
+			validationErrors.should.have.length(1);
+		});
+	});
+
+	describe('When validating a null value', function() {
+		before(function() {
+			var objectWithNullStringProperty = {
+				stringProperty: undefined
+			};
+
+			validationErrors = validator.validate(objectWithNullStringProperty);
+		});
+
+		it('Should return a validation error', function() {
+			validationErrors.should.have.length(1);
+		});
+	});
 });
 
 var ValueIsMinimumValidator = function() {

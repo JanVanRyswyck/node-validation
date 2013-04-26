@@ -85,6 +85,34 @@ describe('Given a validator that verifies whether the value of the property of a
 			validationErrors.should.have.length(1);
 		});
 	});
+
+	describe('When validating an undefined value', function() {
+		before(function() {
+			var objectWithUndefinedProperty = {
+				property: undefined
+			};
+
+			validationErrors = validator.validate(objectWithUndefinedProperty);
+		});
+
+		it('Should return a validation error', function() {
+			validationErrors.should.have.length(1);
+		});
+	});
+
+	describe('When validating a null value', function() {
+		before(function() {
+			var objectWithNullProperty = {
+				property: null
+			};
+
+			validationErrors = validator.validate(objectWithNullProperty);
+		});
+
+		it('Should return a validation error', function() {
+			validationErrors.should.have.length(1);
+		});
+	});
 });
 
 var ValueIsExclusiveBetweenValidator = function() {
