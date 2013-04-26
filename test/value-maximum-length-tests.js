@@ -4,7 +4,7 @@ var should = require('chai').should(),
 
 var MAXIMUM_LENGTH = 16;
 
-describe('Given a validator that verifies whether the string property of an object has a particular maximum length', function() {
+describe('Given a validator that verifies whether the property of an object has a particular maximum length', function() {
 	var validator, validationErrors, stringValue;
 
 	before(function() {
