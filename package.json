@@ -3,9 +3,12 @@
   "description": "A small validation library for Node.js",
   "version": "0.1.0",
   "author": "Jan Van Ryswyck (http://elegantcode.com)",
+  "homepage": "https://github.com/JanVanRyswyck/node-validation",
   "keywords": [
     "validator",
     "validation",
+    "rule",
+    "rules",
     "express"
   ],
   "scripts": {
