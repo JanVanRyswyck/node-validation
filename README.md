@@ -148,7 +148,7 @@ Clone this repository from GitHub. Go to the directory that contains the cloned 
 Then run the tests.
 
 ``` bash
-  $ npm run-script tests
+  $ npm run-script test
 ```
 
 ## License

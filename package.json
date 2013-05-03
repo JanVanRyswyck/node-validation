@@ -12,7 +12,7 @@
     "express"
   ],
   "scripts": {
-    "tests": "mocha ./test/*"
+    "test": "mocha ./test/*"
   },
   "directories": {
     "lib": "./lib"
